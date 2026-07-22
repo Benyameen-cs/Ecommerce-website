@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    <title>Ecommerce Login</title>
+{% endblock %}
+
+{% block link %}
+    <link rel="stylesheet" href="{% static 'CSS/accounts.css' %}">
+{% endblock %}
+
+{% block content %}
+    <main class="login-main">
+        <div class="login-container">
+            <h1>Login</h1>
+            <form method="post">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <input type="submit" value="Login">
+            </form>
+        </div>
+    </main>
+{% endblock %}

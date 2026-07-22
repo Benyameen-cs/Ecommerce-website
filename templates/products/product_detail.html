@@ -1,0 +1,35 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    <title>Ecommerce Product detail</title>
+{% endblock%}
+
+{% block link %}
+    <link rel="stylesheet" href="{% static 'CSS/products.css' %}">
+{% endblock %}
+
+{% block content %}
+    <main>
+        <div class="main-container">
+            <div class="product-container">
+                <div class="product-image-container">
+                    <img  src="./Assets/images/Paul Andrew  Rhea Sandals $30.jpg" alt="product image " />
+                </div>
+                <div class="product-data-container">
+                    <div class="product-detail-data">
+                        <span>{{ productType }}</span>
+                        <h1 class="product-heading">{{productName}}</h1>
+                        <div class="product-pricing">
+                            <h1 class="product-discount-price">${{ productDiscountPrice }}</h1>
+                            <p class="product-original-price"> ${{ ProductOriginalPrice }}</p>
+                        </div>
+                        <p class="product-description">{{productDescription}}</p>
+                        <button class="product-add-to-cart-button">   Add to Cart </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+{% endblock%}

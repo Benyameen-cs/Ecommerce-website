@@ -1,0 +1,421 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.products-list-main{
+    width: 100%;
+    height: auto;
+}
+
+.products-list-heading{
+    width: 100%;
+    height: 25rem;
+    background-color: hsl(158, 36%, 37%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.products-list-heading h1{
+    font-family: "playfair";
+    font-weight: 700;
+    font-size: 4rem;
+    color: white;   
+}
+
+.products-list-items{
+    margin-top: 30px;
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+    gap: 4.6%;
+    padding: 0 1rem;
+}
+.collection-items-for-women{
+    margin-top: 30px;
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+    gap: 4%;
+}
+.item{
+    border-radius: 10px;
+    border: 1px solid rgb(220, 210, 210);
+    padding: 1rem;
+    width: 260px;
+    height: auto;
+    margin:30px 0px;
+}
+
+.item-image{
+    width: 260px;
+    height: 200px;
+    border-radius: 10px;
+    background-color: rgb(220, 210, 210);
+}
+
+.item-image img{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.item-type{
+    font-size: 1rem;
+    font-family: "lora";
+    position: relative;
+    left: 3px;
+    color: rgb(47, 42, 42);
+}
+
+.item-name{
+    font-family: "playfair";
+    font-weight: 900;
+    position: relative;
+    left: 3px;
+}
+
+.prices{
+    display: flex;
+    gap: 10px;
+    position: relative;
+    font-family: 'lora';
+    left: 3px;
+}
+
+.item-price{
+    font-weight: 600;
+}
+
+.item-discount-price{
+    position: relative;
+    font-weight: 600;
+    text-decoration: line-through;
+}
+
+.item-btns{
+    display: flex;
+    margin-top: 10px;
+}
+
+.view-btn{
+    width: 100%;
+    height: 35px;
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+    border:none;
+    cursor: pointer;
+    font-family: "lora";
+    text-decoration: none;
+    align-items: center;
+
+}
+
+.view-btn:hover{
+    background-color: rgba(0, 0, 0, 0.753);
+    color: white;
+}
+
+/*  Product detail Css start from here  */
+
+
+.main-container{
+    width: 100%;
+    height: 100vh;
+    background-color: white;
+    padding: 2rem 0;
+    display: flex;
+    justify-content: center;
+}
+
+.product-container{
+    width: 70%;
+    height: 60vh;
+    background-color: rgba(228, 226, 226, 0.942);  
+    border-radius: 10px;
+    display: flex;
+    padding: 2rem;
+    align-items: flex-start;
+    gap: 2rem;
+    flex-direction: row;
+}
+
+.product-image-container{
+    flex: 0 0 45%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.product-image-container img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.product-data-container{
+    flex: 0 0 55%;
+    display: flex;
+    justify-content: flex-start;
+    height: auto;
+}
+.product-detail-data{
+    width: 100%;
+    padding: 2rem 0rem;
+    height: auto;
+}
+
+span{
+    color:  hsl(228, 12%, 48%);
+    /* font-weight: 700; */
+    font-size: 20px;
+    font-family:'Montserrat';
+}
+
+.product-heading{
+    font-weight: 700;
+    font-size: clamp(1.5rem , 4vw , 2.125rem);
+    padding-top: 0.5rem;
+    padding-bottom: 15px;
+}
+
+.product-description{
+    padding: 10px 0px;
+    font-weight: 500;
+    font-size: 18px;
+    color:  hsl(228, 12%, 48%);
+}
+
+.product-pricing{
+    display: flex;
+    gap: 10%;
+    padding: 10px 0px;
+
+}
+
+.product-discount-price{
+    font-size: 34px;
+    font-weight: bold;
+    color:  hsl(158, 36%, 37%);
+}
+
+.product-original-price{
+    padding: 10px 0px;
+    font-size: 24px;
+    font-weight: 500;
+    color:  hsl(228, 12%, 48%);
+    text-decoration:line-through;
+}
+
+.product-add-to-cart-button{
+    width: 100%;
+    height: 50px;
+    margin: 2rem 0rem;
+    background-color: hsl(158, 36%, 37%);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+}
+
+.product-add-to-cart-button:hover{
+    background-color: hsl(158, 36%, 24%) ;
+}
+
+
+
+/* Product Category Css */
+
+.category-container{
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.category-heading{
+    height: 25rem;
+    padding: 2rem;
+    color: white;
+    background-color: hsl(158, 36%, 37%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.category-heading h1{
+    font-size: 4rem;
+    text-transform: uppercase;
+    font-family: 'Montserrat';
+    font-weight: 700;
+}
+
+.category-list{
+    height: auto;
+    padding: 4rem;
+    display: flex;
+    background-color: white;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    gap: 3rem;
+    flex-wrap: wrap;
+}
+
+.category-item{
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.category-item-name-and-view-btn{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+}
+
+.category-item-name-and-view-btn h2{
+    font-size: 2rem;
+    text-transform: uppercase;
+    font-family: 'Montserrat';
+    font-weight: 700;
+    color: black;
+}
+
+.category-item-name-and-view-btn .view-products-btn{
+    width: 120px;
+    height: 45px;
+    background-color: hsl(158, 36%, 37%);
+    color: white;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Montserrat';
+    font-weight: 700;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+}
+
+.category-item-name-and-view-btn .view-products-btn:hover{
+    background-color: hsl(158, 36%, 24%);
+    color: white;
+}
+
+.category-items-container{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    gap: 2rem;
+    flex-wrap: wrap;
+    border : 1px solid rgb(220, 210, 210);
+}
+
+.item-price{
+    font-weight: 600;
+}
+
+.item-price{
+    position: relative;
+    left: 30px;
+    font-weight: 600; 
+    text-decoration: line-through;
+}
+
+.item-discounted-price{
+    position: relative;
+    font-weight: 600;
+}
+
+
+
+.item-btns{
+    display: flex;
+    margin-top: 10px;
+}
+
+.view-btn{
+    width: 100%;
+    height: 45px;
+    background-color: hsl(158, 36%, 37%);
+    color: white;
+    border-radius: 5px;
+    font-size: 1rem;
+    border:none;
+    cursor: pointer;
+    font-family: "lora";
+}
+
+.view-btn:hover{
+    background-color: rgba(0, 0, 0, 0.753);
+    color: white;
+}
+
+/*  Category Details CSS start */
+
+.category-products-main-container{
+    box-sizing: border-box;
+    height: auto;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.category-product-heading{
+    height: 25rem;
+    padding: 2rem;
+    color: white;
+    background-color: hsl(158, 36%, 37%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.category-product-heading h1{
+    font-size: 4rem;
+    text-transform: uppercase;
+    font-family: 'Montserrat';
+    font-weight: 700;
+}
+.category-products-container{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 2rem;
+}
+
+.category-products{
+    height: auto;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    padding: 2rem;
+    flex-wrap: wrap;
+    gap: 3rem;
+}
+
+
+
+
+
+
+

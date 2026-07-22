@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}
+    <title>Shopping Cart</title>
+{% endblock %}
+
+{% block link %}
+    <link rel="stylesheet" href="{% static 'css/orders.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="container-heading">Cart</h1>
+        <div class="cart-items">
+            {% if cartItems %}
+                {% for cartItem in cartItems %}
+                    <div class="items">
+                        <div class="item-image">
+                            <img src="{{cartItem.itemImageSrc}}" alt="{{cartItem.itemName}}">
+                        </div>
+                        <h4 class="item-name">{{cartItem.itemName}}</h4>
+                        <p class="item-quantity">{{cartItem.itemQuantity}}</p>
+                        <p class="item-price">Rs {{cartItem.itemPrice}}</p>
+                        <button class="remove-item-btn" >Remove</button>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="message">Your cart is empty.</p>
+            {% endif %}
+        </div>
+        <div class="heading-underline"></div>
+        <div class="total-price-container">
+            <h2 >Grand Total:</h2>
+            <p class="total-price">$0.00</p>
+        </div>
+        <div class="cart-actions">
+            <a class="continue-shopping-btn" href="{% url 'product_list' %}" >Continue Shopping</a>
+            <a class="checkout-btn" href="{% url 'checkout' %}" >Proceed to Checkout</a>
+        </div>
+    </div>
+{% endblock %}

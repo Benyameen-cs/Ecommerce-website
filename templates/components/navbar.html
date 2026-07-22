@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        header{
+            padding: 2% 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: black;
+        }
+
+        .logo{
+            font-family: "playfair";
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        nav ul{
+            display: flex;
+            gap: 20px;
+            list-style-type: none;
+        }
+
+        nav ul li a{
+            text-decoration: none;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a class="logo" href="{% url 'home' %}"><h1>Ecommerce</h1></a>
+        <nav>
+            <ul>
+                <li><a href="{% url 'product_list' %}" >Products</a></li>
+                <li><a href="{% url 'category' %}" >Category</a></li>
+                <li><a href="{% url 'cart' %}" >Cart</a></li>
+                <li><a href="{% url 'orders' %}" >Orders</a></li>
+                <li><a href="{% url 'login' %}" >Login</a></li>
+                <li><a href="{% url 'register' %}" >Register</a></li>
+                <li><a href="{% url 'profile' %}" >Profile</a></li>
+            </ul>
+        </nav>
+    </header>    
+</body>
+</html>

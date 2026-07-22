@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    <title>Ecommerce Profile</title>
+{% endblock %}
+
+{% block link %}
+    <link rel="stylesheet" href="{% static 'CSS/accounts.css' %}">
+{% endblock %}
+
+{% block content %}
+    <main class="profile-main">
+        <div class="profile-container">
+            <h1>User Profile</h1>
+            <div class="profile-data-container">
+                <div class="profile-pic">
+                    <img src="{% static 'images/profile-pic.png' %}" alt="Profile Picture">
+                </div>
+                <div class="profile-info">
+                    <p><strong>Username:</strong> {{ user.userName }}</p>
+                    <p><strong>Email:</strong> {{ user.Email }}</p>
+                    <p><strong>First Name:</strong> {{ user.firstName }}</p>
+                    <p><strong>Last Name:</strong> {{ user.lastName }}</p>
+                    <p><strong>Member Since:</strong> {{ user.date_joined }}</p>
+                </div>
+            </div>
+            <div class="order-section">
+                <h2>Order History</h2>
+                {% if orders %}
+                    <ul class="order-list">
+                        {% for order in orders %}
+                            <li class="order-item">
+                                <p><strong>Order ID:</strong> {{ order.OrderId }}</p>
+                                <p><strong>Date:</strong> {{ order.Date }}</p>
+                                <p><strong>Total:</strong> ${{ order.Total }}</p>
+                                <p><strong>Status:</strong> {{ order.Status }}</p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No orders found.</p>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+{% endblock %}

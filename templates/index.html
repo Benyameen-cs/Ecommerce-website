@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecommerce</title>
+    {% load static %}
+    <link rel="stylesheet" href="{%static 'CSS/home.css'%}">
+</head>
+<body>   
+    {% include "components/navbar.html" %}
+    <section class="home-hero-section">
+        <div class="home-hero">
+            <div class="home-content">
+                <h1 class="hero-heading">{{ message }}</h1>                    
+                <p class="hero-para">Explore our latests design products that feel you</p>
+            </div> 
+            <div class="home-img">
+                <img src= "{% static 'images/hero.jpg' %}" height="100%" width="100%" alt="hero image" >
+            </div>
+        </div>
+    </section>
+    {% include "components/footer.html" %}
+</body>
+</html>
