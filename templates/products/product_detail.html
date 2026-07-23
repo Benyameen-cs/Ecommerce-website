@@ -14,17 +14,17 @@
         <div class="main-container">
             <div class="product-container">
                 <div class="product-image-container">
-                    <img  src="./Assets/images/Paul Andrew  Rhea Sandals $30.jpg" alt="product image " />
+                    <img  src="{{ product.image.url }}" alt="{{ product.name }}" />
                 </div>
                 <div class="product-data-container">
                     <div class="product-detail-data">
-                        <span>{{ productType }}</span>
-                        <h1 class="product-heading">{{productName}}</h1>
+                        <span>{{ product.category }}</span>
+                        <h1 class="product-heading">{{ product.name }}</h1>
                         <div class="product-pricing">
-                            <h1 class="product-discount-price">${{ productDiscountPrice }}</h1>
+                            <h1 class="product-discount-price">Rs {{ product.price }}</h1>
                         </div>
-                        <p class="product-description">{{productDescription}}</p>
-                        <button class="product-add-to-cart-button">   Add to Cart </button>
+                        <p class="product-description">{{ product.description }}</p>
+                        <button class="product-add-to-cart-button">Add to Cart</button>
                     </div>
                 </div>
             </div>

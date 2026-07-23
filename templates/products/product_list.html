@@ -13,15 +13,21 @@
 
     <main class="products-list-main">
         <div class="products-list-heading">
-            <h1>Products</h1>
+            <img src="{% static 'images/product hero sections image.jpeg' %}" alt="products" class="products-list-image">
+            <div>
+                <h1>Products</h1>
+                <p>Explore curated collections and discover your next favorite find with exclusive seasonal picks.</p>
+            </div>
         </div>
         <div class="products-list-items">
             {% for product in products  %}
                 <div class="item">
-                    <div class="item-image"></div>
+                    <div class="item-image">
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                    </div>
                     <h3 class="item-name">{{ product.name }}</h3>
                     <div class="prices">
-                        <p class="item-price">Rs {{ product.discountPrice }}</p>
+                        <p class="item-price">Rs {{ product.price }}</p>
                     </div>
                     <div class="item-btns">
                         <a href="{{ product.id }}" class="view-btn"> View </a>

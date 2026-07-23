@@ -16,165 +16,30 @@
             <div class="category-heading">
                 <h1>Categories</h1>
             </div>
-            <div class="category-list">
-                <div class="category-item">
-                    <div class="category-item-name-and-view-btn">
-                        <h2>Perfume</h2>
-                        <a href="{% url 'category_detail' name='Perfume' %}" class="view-products-btn">View Products</a>
+            {% for category in categories %}
+                <div class="category-list">
+                    <div class="category-item">
+                        <div class="category-item-name-and-view-btn">
+                            <h2>{{ category.name }}</h2>
+                            <a href="{% url 'category_detail' slug=category.slug %}" class="view-products-btn">View Products</a>
+                        </div>
+                        <div class="category-items-container">
+                            {% for product in category.products.all %}
+                                <div class="item">
+                                    <div class="item-image"><img src="{{ product.image.url }}" alt="{{ product.name }}"></div>
+                                    <h3 class="item-name">{{ product.name }}</h3>
+                                    <div class="prices">
+                                        <p class="item-price">Rs {{ product.price }}</p>
+                                    </div>
+                                    <div class="item-btns">
+                                        <a href="{% url 'product_detail' id=product.id %}" class="view-btn">View Details</a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>  
                     </div>
-                    <div class="category-items-container">
-                        <div class="item">
-                            <div class="item-image"><img src="./Assets/images/domino-studio-164_6wVEHfI-unsplash.jpg" alt="Category 1 Product 1"></div>
-                            <h3 class="item-name">Category 1 Product 1</h3>
-                            <div class="prices">
-                                <p class="item-discounted-price">Rs 800</p>
-                                <p class="item-price">Rs 1000</p>
-                            </div>
-                            <div class="item-btns">
-                                <a href="{% url 'product_detail' id=1 %}" class="view-btn">View Details</a>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="item-image"><img src="./Assets/images/domino-studio-164_6wVEHfI-unsplash.jpg" alt="Category 1 Product 1"></div>
-                            <h3 class="item-name">Category 1 Product 1</h3>
-                            <div class="prices">
-                                <p class="item-discounted-price">Rs 800</p>
-                                <p class="item-price">Rs 1000</p>
-                            </div>
-                            <div class="item-btns">
-                                <a href="{% url 'product_detail' id=2 %}" class="view-btn">View Details</a>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="item-image"><img src="./Assets/images/domino-studio-164_6wVEHfI-unsplash.jpg" alt="Category 1 Product 1"></div>
-                            <h3 class="item-name">Category 1 Product 1</h3>
-                            <div class="prices">
-                                <p class="item-discounted-price">Rs 800</p>
-                                <p class="item-price">Rs 1000</p>
-                            </div>
-                            <div class="item-btns">
-                                <a href="{% url 'product_detail' id=3 %}" class="view-btn">View Details</a>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="item-image"><img src="./Assets/images/domino-studio-164_6wVEHfI-unsplash.jpg" alt="Category 1 Product 1"></div>
-                            <h3 class="item-name">Category 1 Product 1</h3>
-                            <div class="prices">
-                                <p class="item-discounted-price">Rs 800</p>
-                                <p class="item-price">Rs 1000</p>
-                            </div>
-                            <div class="item-btns">
-                                <a href="{% url 'product_detail' id=4 %}" class="view-btn">View Details</a>
-                            </div>
-                        </div>
-                    </div>  
                 </div>
-                <div class="category-item">
-                    <div class="category-item-name-and-view-btn">
-                        <h2>Sports</h2>
-                        <a href="{% url 'category_detail' name='Sports' %}" class="view-products-btn">View Products</a>
-                    </div>
-                    <div class="category-items-container">
-                        <div class="item">
-                            <div class="item-image"><img src="./Assets/images/domino-studio-164_6wVEHfI-unsplash.jpg" alt="Category 1 Product 1"></div>
-                            <h3 class="item-name">Category 1 Product 1</h3>
-                            <div class="prices">
-                                <p class="item-discounted-price">Rs 800</p>
-                                <p class="item-price">Rs 1000</p>
-                            </div>
-                            <div class="item-btns">
-                                <a href="{% url 'product_detail' id=5 %}" class="view-btn">View Details</a>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="item-image"><img src="./Assets/images/domino-studio-164_6wVEHfI-unsplash.jpg" alt="Category 1 Product 1"></div>
-                            <h3 class="item-name">Category 1 Product 1</h3>
-                            <div class="prices">
-                                <p class="item-discounted-price">Rs 800</p>
-                                <p class="item-price">Rs 1000</p>
-                            </div>
-                            <div class="item-btns">
-                                <a href="{% url 'product_detail' id=6 %}" class="view-btn">View Details</a>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="item-image"><img src="./Assets/images/domino-studio-164_6wVEHfI-unsplash.jpg" alt="Category 1 Product 1"></div>
-                            <h3 class="item-name">Category 1 Product 1</h3>
-                            <div class="prices">
-                                <p class="item-discounted-price">Rs 800</p>
-                                <p class="item-price">Rs 1000</p>
-                            </div>
-                            <div class="item-btns">
-                                <a href="{% url 'product_detail' id=7 %}" class="view-btn">View Details</a>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="item-image"><img src="./Assets/images/domino-studio-164_6wVEHfI-unsplash.jpg" alt="Category 1 Product 1"></div>
-                            <h3 class="item-name">Category 1 Product 1</h3>
-                            <div class="prices">
-                                <p class="item-discounted-price">Rs 800</p>
-                                <p class="item-price">Rs 1000</p>
-                            </div>
-                            <div class="item-btns">
-                                <a href="{% url 'product_detail' id=8 %}" class="view-btn">View Details</a>
-                            </div>
-                        </div>
-                    </div>  
-                </div>
-                <div class="category-item">
-                    <div class="category-item-name-and-view-btn">
-                        <h2>Crickets</h2>
-                        <a href="{% url 'category_detail' name='Crickets' %}" class="view-products-btn">View Products</a>
-                    </div>
-                    <div class="category-items-container">
-                        <div class="item">
-                            <div class="item-image"><img src="./Assets/images/domino-studio-164_6wVEHfI-unsplash.jpg" alt="Category 1 Product 1"></div>
-                            <h3 class="item-name">Category 1 Product 1</h3>
-                            <div class="prices">
-                                <p class="item-discounted-price">Rs 800</p>
-                                <p class="item-price">Rs 1000</p>
-                            </div>
-                            <div class="item-btns">
-                                <a href="{% url 'product_detail' id=5 %}" class="view-btn">View Details</a>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="item-image"><img src="./Assets/images/domino-studio-164_6wVEHfI-unsplash.jpg" alt="Category 1 Product 1"></div>
-                            <h3 class="item-name">Category 1 Product 1</h3>
-                            <div class="prices">
-                                <p class="item-discounted-price">Rs 800</p>
-                                <p class="item-price">Rs 1000</p>
-                            </div>
-                            <div class="item-btns">
-                                <a href="{% url 'product_detail' id=6 %}" class="view-btn">View Details</a>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="item-image"><img src="./Assets/images/domino-studio-164_6wVEHfI-unsplash.jpg" alt="Category 1 Product 1"></div>
-                            <h3 class="item-name">Category 1 Product 1</h3>
-                            <div class="prices">
-                                <p class="item-discounted-price">Rs 800</p>
-                                <p class="item-price">Rs 1000</p>
-                            </div>
-                            <div class="item-btns">
-                                <a href="{% url 'product_detail' id=7 %}" class="view-btn">View Details</a>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="item-image"><img src="./Assets/images/domino-studio-164_6wVEHfI-unsplash.jpg" alt="Category 1 Product 1"></div>
-                            <h3 class="item-name">Category 1 Product 1</h3>
-                            <div class="prices">
-                                <p class="item-discounted-price">Rs 800</p>
-                                <p class="item-price">Rs 1000</p>
-                            </div>
-                            <div class="item-btns">
-                                <a href="{% url 'product_detail' id=8 %}" class="view-btn">View Details</a>
-                            </div>
-                        </div>
-                    </div>  
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </main>
-
 {% endblock %}

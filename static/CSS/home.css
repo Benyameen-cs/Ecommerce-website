@@ -37,8 +37,9 @@
 .home-content .hero-heading{
     font-weight: 900;
     font-size: 4rem;
-    font-family: 'playfair';
-    color: white;
+    font-family: 'Montserrat';
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.65);
+    color:aliceblue
 }
 
 .home-content .hero-para{

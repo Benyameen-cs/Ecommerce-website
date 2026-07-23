@@ -9,19 +9,49 @@
 }
 
 .products-list-heading{
-    width: 100%;
     height: 25rem;
     background-color: hsl(158, 36%, 37%);
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding-right: 3rem;
+}
+
+
+.products-list-heading .products-list-image{
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
 }
 
 .products-list-heading h1{
+    position: relative;
+    z-index: 2;
     font-family: "playfair";
     font-weight: 700;
-    font-size: 4rem;
-    color: white;   
+    font-size: 6rem;
+    color: rgb(59, 59, 60);
+    text-align: right;
+    margin: 0;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.65);
+}
+
+.products-list-heading p{
+    position: relative;
+    z-index: 2;
+    color: rgb(59, 59, 60);
+    margin: 0.75rem 0 0;
+    text-align: right;
+    max-width: 30rem;
+    font-family: "lora";
+    font-size: 1.5rem;
+    line-height: 1.5;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.65);
 }
 
 .products-list-items{
@@ -102,6 +132,8 @@
     font-family: "lora";
     text-decoration: none;
     align-items: center;
+    text-align: center;
+    line-height: 35px;
 
 }
 
@@ -115,7 +147,7 @@
 
 .main-container{
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     background-color: rgb(254, 241, 241);
     padding: 2rem 0;
     display: flex;
@@ -123,7 +155,7 @@
 }
 
 .product-container{ 
-    width: min(95%, 650px);
+    width: min(80%, 500px);
     background-color: white;
     border-radius: 10px;
     display: flex;
@@ -135,7 +167,7 @@
 
 .product-image-container{
     width: 100%;
-    overflow: hidden;
+    height: 400px;
     border-radius: 10px;
     background-color: hsl(30, 38%, 92%);
 }
@@ -143,7 +175,6 @@
 .product-image-container img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
     display: block;
     border-radius: 10px;
     background-color: hsl(30, 3%, 89%);
@@ -172,7 +203,7 @@ span{
 .product-heading{
     font-weight: 700;
     font-size: clamp(1.5rem , 4vw , 2.125rem);
-    padding-top: 0.5rem;
+    padding-top: 0.3rem;
     padding-bottom: 15px;
 }
 
@@ -355,21 +386,36 @@ span{
 }
 
 .category-product-heading{
+    position: relative;
     height: 25rem;
     padding: 2rem;
     color: white;
     background-color: hsl(158, 36%, 37%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
+    overflow: hidden;
+}
+
+.category-product-heading img{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
 }
 
 .category-product-heading h1{
+    position: absolute;
+    text-align: center;
+    top: 2rem;
+    left: 2rem;
+    z-index: 2;
     font-size: 4rem;
     text-transform: uppercase;
     font-family: 'Montserrat';
     font-weight: 700;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.65);
+    color:aliceblue
 }
 .category-products-container{
     display: flex;
