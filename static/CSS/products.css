@@ -6,6 +6,7 @@
 .products-list-main{
     width: 100%;
     height: auto;
+    background-color: whitesmoke;
 }
 
 .products-list-heading{
@@ -76,6 +77,7 @@
     width: 260px;
     height: auto;
     margin:30px 0px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
 }
 
 .item-image{
@@ -91,12 +93,14 @@
     border-radius: 10px;
 }
 
-.item-type{
-    font-size: 1rem;
+.item-category{
+    font-size: 1.2rem;
     font-family: "lora";
     position: relative;
+    padding-top: 5px;
     left: 3px;
-    color: rgb(47, 42, 42);
+    color: rgba(69, 69, 69, 0.901);
+    text-decoration: capitalize;
 }
 
 .item-name{
@@ -148,7 +152,7 @@
 .main-container{
     width: 100%;
     min-height: 100vh;
-    background-color: rgb(254, 241, 241);
+    background-color: whitesmoke;
     padding: 2rem 0;
     display: flex;
     justify-content: center;
@@ -161,7 +165,7 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
     padding: 1rem;
 }
 
@@ -255,13 +259,14 @@ span{
 /* Product Category Css */
 
 .category-container{
-    background-color: white;
+    background-color: whitesmoke;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
 }
 
 .category-heading{
+    position: relative;
     height: 25rem;
     padding: 2rem;
     color: white;
@@ -272,18 +277,24 @@ span{
     
 }
 
-.category-heading h1{
-    font-size: 4rem;
-    text-transform: uppercase;
-    font-family: 'Montserrat';
-    font-weight: 700;
+.category-heading img{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    object-fit: cover;
+    overflow: hidden;
 }
+
 
 .category-list{
     height: auto;
     padding: 4rem;
     display: flex;
-    background-color: white;
+    background-color: whitesmoke;
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;

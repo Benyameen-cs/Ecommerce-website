@@ -14,7 +14,7 @@
     <main>
         <div class="category-container">
             <div class="category-heading">
-                <h1>Categories</h1>
+                <img src="{% static 'images/categories.png' %}" alt="Category Image">
             </div>
             {% for category in categories %}
                 <div class="category-list">
@@ -27,6 +27,7 @@
                             {% for product in category.products.all %}
                                 <div class="item">
                                     <div class="item-image"><img src="{{ product.image.url }}" alt="{{ product.name }}"></div>
+                                    <h3 class="item-category">{{ product.category }}</h3>
                                     <h3 class="item-name">{{ product.name }}</h3>
                                     <div class="prices">
                                         <p class="item-price">Rs {{ product.price }}</p>
