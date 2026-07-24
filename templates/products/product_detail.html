@@ -24,7 +24,10 @@
                             <h1 class="product-discount-price">Rs {{ product.price }}</h1>
                         </div>
                         <p class="product-description">{{ product.description }}</p>
-                        <button class="product-add-to-cart-button">Add to Cart</button>
+                        <form action="{% url 'add_to_cart' product.id %}" method="post">
+                            {% csrf_token %}
+                            <button class="product-add-to-cart-button">Add to Cart</button>
+                        </form>
                     </div>
                 </div>
             </div>

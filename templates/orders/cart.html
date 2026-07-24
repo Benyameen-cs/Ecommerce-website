@@ -13,15 +13,20 @@
     <div class="container">
         <h1 class="container-heading">Cart</h1>
         <div class="cart-items">
-            {% if cartItems %}
-                {% for cartItem in cartItems %}
+            {% if items %}
+                {% for item in items %}
                     <div class="items">
                         <div class="item-image">
-                            <img src="{{cartItem.itemImageSrc}}" alt="{{cartItem.itemName}}">
+                            <img src="{{item.product.image.url}}" alt="{{item.product.name}}">
                         </div>
-                        <h4 class="item-name">{{cartItem.itemName}}</h4>
-                        <p class="item-quantity">{{cartItem.itemQuantity}}</p>
-                        <p class="item-price">Rs {{cartItem.itemPrice}}</p>
+                        <h4 class="item-name">{{item.product.name}}</h4>
+                        <div class="item-quantity-increase-decrease-contaienr">
+                            <a href="{% url 'decrease_cart_item' item.product.id %}">-</a>
+                            <p class="item-quantity">{{item.quantity}}</p>
+                            <a href="{% url 'increase_cart_item' item.product.id %}">+</a>
+                        </div>
+                        <p class="item-price">Rs {{item.product.price}}</p>                
+                        <p class="item-price">Rs {{item.sub_total}}</p>
                         <button class="remove-item-btn" >Remove</button>
                     </div>
                 {% endfor %}
@@ -32,7 +37,7 @@
         <div class="heading-underline"></div>
         <div class="total-price-container">
             <h2 >Grand Total:</h2>
-            <p class="total-price">$0.00</p>
+            <p class="total-price">Rs {{ total_price }}</p>
         </div>
         <div class="cart-actions">
             <a class="continue-shopping-btn" href="{% url 'product_list' %}" >Continue Shopping</a>

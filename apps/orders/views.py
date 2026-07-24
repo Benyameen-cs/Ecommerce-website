@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render , get_object_or_404 , redirect
 
 from django.http import HttpResponse
 
+from ..products.models import Product
 # Create your views here.
 
 
@@ -43,30 +44,65 @@ def orders(req):
     return render(req , 'orders/orders.html' , context)
 
 
+def add_to_cart(req , product_id):
+    product = get_object_or_404(Product , id=product_id)
+    cart_product_id = str(product_id)
+    cart = req.session.get('cart' , {})
+    if cart_product_id in cart:
+        cart[cart_product_id] += 1
+    else:
+        cart[cart_product_id] = 1
+    req.session['cart'] = cart
+    return redirect('product_list')
+
+
+def decrease_cart_item(req , product_id):
+    product = get_object_or_404(Product , id=product_id)
+    cart = req.session.get('cart', {})
+    cart_product_id = str(product_id)
+    if cart[cart_product_id] == 1:
+        return redirect('cart')
+    else:
+        cart[cart_product_id] -= 1
+
+    req.session['cart'] = cart
+    return redirect('cart')
+
+
+def increase_cart_item(req , product_id):
+    product = get_object_or_404(Product , id=product_id)
+    cart = req.session.get('cart', {})
+    cart_product_id = str(product_id)
+    quantity = cart[cart_product_id]
+
+    if quantity == product.stock:
+        req.session['cart'] = cart
+        return redirect('cart')
+    else:
+        cart[cart_product_id] += 1
+    req.session['cart'] = cart
+    return redirect('cart')
+
 def cart(req):
+    items = []
+    grand_total = 0
+    cart = req.session.get('cart', {})
+    cart_ids = cart.keys()
+    products = Product.objects.filter(id__in = cart_ids)
+    for product in products:
+        cart_product_id = str(product.id)
+        quantity = cart[cart_product_id]
+        sub_total = product.price * quantity
+        grand_total += sub_total
+        items.append({
+            'product' : product,
+            'quantity': quantity,
+            'sub_total' : sub_total,
+        })
+
     context = {
-        'cartItems' : [
-            {
-                'itemName' : 'Watch',
-                'itemQuantity': 2,
-                'itemPrice' : 2333,
-            },
-            {
-                'itemName' : 'Watch',
-                'itemQuantity': 2,
-                'itemPrice' : 2333,
-            },
-            {
-                'itemName' : 'Watch',
-                'itemQuantity': 2,
-                'itemPrice' : 2333,
-            },
-            {
-                'itemName' : 'Watch',
-                'itemQuantity': 2,
-                'itemPrice' : 2333,
-            },
-        ]
+        'items' : items,
+        'total_price': grand_total
     }
     
     return render(req , 'orders/cart.html' , context)
