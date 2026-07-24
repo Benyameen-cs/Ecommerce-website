@@ -60,8 +60,8 @@ def decrease_cart_item(req , product_id):
     product = get_object_or_404(Product , id=product_id)
     cart = req.session.get('cart', {})
     cart_product_id = str(product_id)
-    if cart[cart_product_id] == 1:
-        return redirect('cart')
+    if cart[cart_product_id] <= 1:
+        cart.pop(cart_product_id , None)
     else:
         cart[cart_product_id] -= 1
 
@@ -82,6 +82,19 @@ def increase_cart_item(req , product_id):
         cart[cart_product_id] += 1
     req.session['cart'] = cart
     return redirect('cart')
+
+
+def remove_cart_item(req , product_id):
+    cart_product_id = str(product_id)
+    cart = req.session.get('cart', {})
+    if cart_product_id in cart: 
+        cart.pop(cart_product_id ,None)
+        req.session['cart'] = cart
+        return redirect('cart')
+    else:
+        return redirect('cart')
+
+
 
 def cart(req):
     items = []

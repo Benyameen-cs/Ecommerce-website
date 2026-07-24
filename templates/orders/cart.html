@@ -27,7 +27,10 @@
                         </div>
                         <p class="item-price">Rs {{item.product.price}}</p>                
                         <p class="item-price">Rs {{item.sub_total}}</p>
-                        <button class="remove-item-btn" >Remove</button>
+                        <form method="post" action="{% url 'remove_cart_item' item.product.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="remove-item-btn">Remove</button>
+                        </form>
                     </div>
                 {% endfor %}
             {% else %}
