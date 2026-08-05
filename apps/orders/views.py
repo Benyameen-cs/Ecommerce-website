@@ -1,8 +1,11 @@
 from django.shortcuts import render , get_object_or_404 , redirect
 
 from django.http import HttpResponse
-
+from ..orders.models import Order , OrderItems
+from ..accounts.models import Customer
 from ..products.models import Product
+from .form import CustomerForm  
+
 # Create your views here.
 
 
@@ -122,6 +125,65 @@ def cart(req):
 
 
 def checkout(req):
-    return render(req , 'orders/checkout.html' , {'data': 'data'})
-    
 
+    cart = req.session.get('cart' , {})
+    if not cart:
+        return redirect('cart')
+    else:
+        cart_ids = cart.keys()
+        products = Product.objects.filter(id__in = cart_ids)
+        grand_total = 0
+        for product in products:
+            cart_product_id = str(product.id)
+            quantity = cart[cart_product_id]
+            sub_total = product.price * quantity
+            grand_total += sub_total
+
+
+        if req.method == 'POST':
+            form = CustomerForm(req.POST)
+
+            if form.is_valid():
+                email = form.cleaned_data['email']
+                customer, created = Customer.objects.get_or_create(
+                    email = email,
+                    defaults={
+                        'name' : form.cleaned_data['name'],
+                        'email' : form.cleaned_data['email'],
+                        'phoneNo' : form.cleaned_data['phoneNo'],
+                        'city' : form.cleaned_data['city'],
+                        'street' : form.cleaned_data['street'],
+                    }
+                )
+                order = Order.objects.create(
+                    customer = customer,
+                    total_price = grand_total
+                )
+
+                for product in products:
+                    cart_product_id = str(product.id)
+                    quantity = cart[cart_product_id]
+
+                    OrderItems.objects.create(
+                        order = order,
+                        product = product,
+                        quantity = quantity,
+                        price = product.price,
+                    )
+
+                    product.stock -= quantity
+                    product.save()
+                req.session['cart'] = {}
+                return redirect('order_success_page')      
+        else:
+            form = CustomerForm()
+
+        context = {
+            'form' : form,
+            'total_amounts' : grand_total
+        }
+        return render(req , 'orders/checkout.html' , context)
+        
+
+def success_page(req):
+    return render(req , 'orders/success_page.html' , {})

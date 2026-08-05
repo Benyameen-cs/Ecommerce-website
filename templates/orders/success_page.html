@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}
+    <title>Order Successful</title>
+{% endblock %}
+
+{% block link %}
+    <link rel="stylesheet" href="{% static 'CSS/orders.css' %}">
+{% endblock%}
+
+{% block content %}
+    <main class="success-main">
+        <div class="success-container">
+            <h1 class="container-heading">Order Successful</h1>
+            <div class="heading-underline"></div>
+            <p class="success-message">Thank you for your order!</p>
+            <a href="{% url 'home' %}" class="continue-shopping-btn">Continue Shopping</a>
+        </div>
+    </main>
+{% endblock %}
+
+{% include 'footer.html' %}
