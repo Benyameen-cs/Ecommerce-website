@@ -55,6 +55,18 @@ def add_to_cart(req , product_id):
     req.session['cart'] = cart
     return redirect('product_list')
 
+def remove_cart_item(req , product_id):
+    cart_product_id = str(product_id)
+    cart = req.session.get('cart', {})
+    if cart_product_id in cart: 
+        cart.pop(cart_product_id ,None)
+        req.session['cart'] = cart
+        return redirect('cart')
+    else:
+        return redirect('cart')
+
+
+
 
 def decrease_cart_item(req , product_id):
     product = get_object_or_404(Product , id=product_id)
@@ -84,17 +96,6 @@ def increase_cart_item(req , product_id):
     return redirect('cart')
 
 
-def remove_cart_item(req , product_id):
-    cart_product_id = str(product_id)
-    cart = req.session.get('cart', {})
-    if cart_product_id in cart: 
-        cart.pop(cart_product_id ,None)
-        req.session['cart'] = cart
-        return redirect('cart')
-    else:
-        return redirect('cart')
-
-
 
 def cart(req):
     items = []
@@ -116,8 +117,7 @@ def cart(req):
     context = {
         'items' : items,
         'total_price': grand_total
-    }
-    
+    } 
     return render(req , 'orders/cart.html' , context)
 
 
