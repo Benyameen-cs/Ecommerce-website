@@ -1,5 +1,5 @@
 from django.shortcuts import render , get_object_or_404 , redirect
-
+from django.contrib import messages
 from django.http import HttpResponse
 from ..orders.models import Order , OrderItems
 from ..accounts.models import Customer
@@ -56,6 +56,7 @@ def add_to_cart(req , product_id):
     else:
         cart[cart_product_id] = 1
     req.session['cart'] = cart
+    messages.success(req , 'Success : product added successfuly..')
     return redirect('product_list')
 
 def remove_cart_item(req , product_id):
@@ -64,8 +65,10 @@ def remove_cart_item(req , product_id):
     if cart_product_id in cart: 
         cart.pop(cart_product_id ,None)
         req.session['cart'] = cart
+        messages.success(req, 'Success : product removed successfully..')
         return redirect('cart')
     else:
+        messages.error(req, 'Error : product is not in cart..')
         return redirect('cart')
 
 
@@ -77,8 +80,10 @@ def decrease_cart_item(req , product_id):
     cart_product_id = str(product_id)
     if cart[cart_product_id] <= 1:
         cart.pop(cart_product_id , None)
+        messages.success(req, 'Success : product removed successfully..')
     else:
         cart[cart_product_id] -= 1
+        messages.success(req, 'Success : quantity decresed successfully..')
 
     req.session['cart'] = cart
     return redirect('cart')
@@ -92,10 +97,12 @@ def increase_cart_item(req , product_id):
 
     if quantity == product.stock:
         req.session['cart'] = cart
+        messages.warning(req , 'Warning : product stock is empty..')
         return redirect('cart')
     else:
         cart[cart_product_id] += 1
     req.session['cart'] = cart
+    messages.success(req , 'Success : quantity incresed successfully..')
     return redirect('cart')
 
 
@@ -128,6 +135,7 @@ def checkout(req):
 
     cart = req.session.get('cart' , {})
     if not cart:
+        messages.error(req , 'Error : cart is empty..')
         return redirect('cart')
     else:
         cart_ids = cart.keys()
@@ -174,6 +182,7 @@ def checkout(req):
                     product.stock -= quantity
                     product.save()
                 req.session['cart'] = {}
+                messages.success(req, 'Success: Order placed successfully..')
                 return redirect('order_success_page')      
         else:
             form = CustomerForm()
