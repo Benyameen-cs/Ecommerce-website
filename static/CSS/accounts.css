@@ -68,7 +68,7 @@
 
 .registration-container {
     min-width: 400px;
-    height: 25rem;
+    min-height: 25rem;
     background-color: #fff;
     padding: 20px;
     border-radius: 5px;
@@ -90,9 +90,10 @@
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    gap: 10px;
 }
 
-.registration-container input[type="submit"] {
+.registration-container button[type="submit"] {
     width: 100%;
     padding: 10px;
     background-color: #28a745;

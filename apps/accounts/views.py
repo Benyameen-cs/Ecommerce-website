@@ -1,13 +1,24 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .forms import RegistrationForm
 
 # Create your views here.
+
+def register(req):
+
+    if req.method == 'POST':
+        form = RegistrationForm(req.POST)
+        if form.is_valid():
+            pass
+    else:
+        form = RegistrationForm()
+
+    return render(req , 'accounts/register.html' , {'form' : form})
+
 
 def login(req):
     return render(req , 'accounts/login.html' , {'data' : 'data'})
 
-def register(req):
-    return render(req , 'accounts/register.html' , {'data' : 'data'})
 
 
 def profile(req):
