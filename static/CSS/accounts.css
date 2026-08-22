@@ -166,6 +166,20 @@
     margin-top: 10px;
 }
 
+.profile-info .logout-btn{
+    width: 30%;
+    padding: 10px;
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.profile-info .logout-btn:hover{
+    background-color: #c82333;
+}
 .order-sections{
     padding: 5% 5%;
     display: flex;

@@ -3,22 +3,31 @@ from django.http import HttpResponse
 from .forms import RegistrationForm , LoginForm
 from .models import Customer
 from django.contrib import messages
-from django.contrib.auth import authenticate , login as auth_login
+from django.contrib.auth import authenticate , login as auth_login , logout as auth_logout
 
 # Create your views here.
 
 def register(req):
 
     if req.method == 'POST':
+        print('register if block')
         form = RegistrationForm(req.POST)
+        print('before form validation')
         if form.is_valid():
+            print('After form validation')
+            print('before creating user')
             user = form.save()
+            print('after creating User')
+            print('before creating Customer')
             Customer.objects.create(
                 user=user
             )
+            print('after creating Customer')
+
             messages.success(req, 'User register successfully..')
             return redirect('login')
     else:
+        print('register else block')
         form = RegistrationForm()
 
     return render(req , 'accounts/register.html' , {'form' : form})
@@ -41,6 +50,13 @@ def login(req):
         form = LoginForm()
 
     return render(req , 'accounts/login.html' , {'form' : form})
+
+
+def logout(req):
+    if req.method == 'POST':
+        auth_logout(req)
+        messages.success(req , 'logout successful')
+        return redirect('home')
 
 
 

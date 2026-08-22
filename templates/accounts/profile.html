@@ -24,6 +24,10 @@
                     <p><strong>First Name:</strong> {{ user.firstName }}</p>
                     <p><strong>Last Name:</strong> {{ user.lastName }}</p>
                     <p><strong>Member Since:</strong> {{ user.date_joined }}</p>
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button class='logout-btn' type="submit">Logout</button>
+                    </form>
                 </div>
             </div>
             <div class="order-section">

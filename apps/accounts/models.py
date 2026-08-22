@@ -18,5 +18,5 @@ class Customer(models.Model):
     street = models.CharField(max_length=150)
 
     def __str__(self):
-        return self.name
+        return self.user.username
 
