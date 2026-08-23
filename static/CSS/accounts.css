@@ -106,6 +106,55 @@
     background-color: #218838;
 }
 
+
+.change-password-main{
+    height: 100vh;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.change-password-container{
+    min-width: 400px;
+    min-height: 25rem;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.change-password-container h1{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.change-password-container label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.change-password-container input{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 25px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    gap: 10px;
+    
+}
+.change-password-container button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+
 /* Profile Styles */
 .profile-main {
     background-color: #f4f4f4;
@@ -165,9 +214,14 @@
     margin-left: 10px;
     margin-top: 10px;
 }
+.profile-actions{
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+}
 
 .profile-info .logout-btn{
-    width: 30%;
+    width: 4.5rem;
     padding: 10px;
     background-color: #dc3545;
     color: #fff;
@@ -180,6 +234,22 @@
 .profile-info .logout-btn:hover{
     background-color: #c82333;
 }
+
+.profile-info .change-password-btn{
+    width: 10.5rem;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.profile-info .change-password-btn:hover{
+    background-color: #0056b3;
+}
+
 .order-sections{
     padding: 5% 5%;
     display: flex;

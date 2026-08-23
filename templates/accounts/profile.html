@@ -19,15 +19,22 @@
                     <img src="{% static 'images/profile-pic.png' %}" alt="Profile Picture">
                 </div>
                 <div class="profile-info">
-                    <p><strong>Username:</strong> {{ user.userName }}</p>
-                    <p><strong>Email:</strong> {{ user.Email }}</p>
-                    <p><strong>First Name:</strong> {{ user.firstName }}</p>
-                    <p><strong>Last Name:</strong> {{ user.lastName }}</p>
-                    <p><strong>Member Since:</strong> {{ user.date_joined }}</p>
-                    <form method="post" action="{% url 'logout' %}">
-                        {% csrf_token %}
-                        <button class='logout-btn' type="submit">Logout</button>
-                    </form>
+                    <p><strong>Username:</strong> {{ req.user.username }}</p>
+                    <p><strong>Email:</strong> {{ req.user.Email }}</p>
+                    <p><strong>First Name:</strong> {{ req.user.firstName }}</p>
+                    <p><strong>Last Name:</strong> {{ req.user.lastName }}</p>
+                    <p><strong>Member Since:</strong> {{ req.user.date_joined }}</p>
+                    <div class="profile-actions">
+                        <form method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button class='logout-btn' type="submit">Logout</button>
+                        </form>
+                        <form method="post" action="{% url 'change_password' %}">
+                            {% csrf_token %}
+                            <button class='change-password-btn' type="submit">Change Password</button>
+                        </form>
+                    </div>
+                    
                 </div>
             </div>
             <div class="order-section">

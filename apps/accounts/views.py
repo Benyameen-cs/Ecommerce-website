@@ -4,7 +4,9 @@ from .forms import RegistrationForm , LoginForm
 from .models import Customer
 from django.contrib import messages
 from django.contrib.auth import authenticate , login as auth_login , logout as auth_logout
-
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def register(req):
@@ -51,15 +53,28 @@ def login(req):
 
     return render(req , 'accounts/login.html' , {'form' : form})
 
-
+@login_required
 def logout(req):
     if req.method == 'POST':
         auth_logout(req)
         messages.success(req , 'logout successful')
         return redirect('home')
 
+@login_required
+def change_password(req):
+    if req.method == 'POST':
+        form = PasswordChangeForm(req.user , req.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(req , user)
+            messages.success(req , 'password change successful')
+            return redirect('profile')
+    else:
+        form = PasswordChangeForm(req.user)
+    return render(req , 'accounts/change_password.html' , {'form' : form})
+    
 
-
+@login_required
 def profile(req):
     context = {
         'user' : {
