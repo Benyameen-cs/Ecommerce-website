@@ -76,14 +76,9 @@ def change_password(req):
 
 @login_required
 def profile(req):
+
     context = {
-        'user' : {
-            'userName': 'ac ali',
-            'Email':'abc@gmail.com',
-            'firstName':'ALI',
-            'lastName' : 'Khan',
-            'date_joined' :'12/1/2020',
-        },
+        'user' : req.user,
         'orders':[
             {
                 'OrderId':11,

@@ -19,11 +19,9 @@
                     <img src="{% static 'images/profile-pic.png' %}" alt="Profile Picture">
                 </div>
                 <div class="profile-info">
-                    <p><strong>Username:</strong> {{ req.user.username }}</p>
-                    <p><strong>Email:</strong> {{ req.user.Email }}</p>
-                    <p><strong>First Name:</strong> {{ req.user.firstName }}</p>
-                    <p><strong>Last Name:</strong> {{ req.user.lastName }}</p>
-                    <p><strong>Member Since:</strong> {{ req.user.date_joined }}</p>
+                    <p><strong>Username:</strong> {{ user.username }}</p>
+                    <p><strong>Email:</strong> {{ user.email }}</p>
+                    <p><strong>Member Since:</strong> {{ user.date_joined }}</p>
                     <div class="profile-actions">
                         <form method="post" action="{% url 'logout' %}">
                             {% csrf_token %}
