@@ -8,7 +8,7 @@ class CustomerForm(forms.ModelForm):
     email = forms.EmailField(required=True)
     class Meta:
         model = Customer
-        fields = ['phoneNo' , 'city' ,'street']
+        fields = ['phone_no' , 'city' ,'street']
 
     def clean_email(self):
         email = self.cleaned_data['email']

@@ -11,15 +11,14 @@ class Order(models.Model):
         Shipped = 'Shipped','Shipped'
         Cancelled = 'Cancelled','Cancelled'
 
-    customer = models.ForeignKey(Customer , on_delete=models.CASCADE , related_name='order')
+    customer = models.ForeignKey(Customer , on_delete=models.CASCADE , related_name='orders')
     status = models.CharField(
         max_length=50,
         choices=StatusChoices.choices,
         default=StatusChoices.Pending
     )
-
     total_price = models.DecimalField(max_digits=10 ,decimal_places=2)
-    create_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
 
 class OrderItems(models.Model):

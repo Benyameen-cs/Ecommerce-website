@@ -69,40 +69,10 @@ def change_password(req):
 @login_required
 def profile(req):
 
+    orders = req.user.customer.orders.all()
     context = {
         'user' : req.user,
-        'orders':[
-            {
-                'OrderId':11,
-                'Date' : '12/2/2022',
-                'Total': 6000,
-                'Status':'100%',
-            },
-            {
-                'OrderId':11,
-                'Date' : '12/2/2022',
-                'Total': 6000,
-                'Status':'100%',
-            },
-            {
-                'OrderId':11,
-                'Date' : '12/2/2022',
-                'Total': 6000,
-                'Status':'100%',
-            },
-            {
-                'OrderId':11,
-                'Date' : '12/2/2022',
-                'Total': 6000,
-                'Status':'100%',
-            },
-            {
-                'OrderId':11,
-                'Date' : '12/2/2022',
-                'Total': 6000,
-                'Status':'100%',
-            },
-        ]
+        'orders': orders ,
     }
     
     return render(req , 'accounts/profile.html' , context)
