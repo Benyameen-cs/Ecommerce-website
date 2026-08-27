@@ -12,24 +12,16 @@ from django.contrib.auth.decorators import login_required
 def register(req):
 
     if req.method == 'POST':
-        print('register if block')
         form = RegistrationForm(req.POST)
-        print('before form validation')
         if form.is_valid():
-            print('After form validation')
-            print('before creating user')
             user = form.save()
-            print('after creating User')
-            print('before creating Customer')
             Customer.objects.create(
                 user=user
             )
-            print('after creating Customer')
 
             messages.success(req, 'User register successfully..')
             return redirect('login')
     else:
-        print('register else block')
         form = RegistrationForm()
 
     return render(req , 'accounts/register.html' , {'form' : form})
