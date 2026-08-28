@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from ..orders.models import Order , OrderItems
 from ..accounts.models import Customer
 from ..products.models import Product
-from .form import CustomerForm  
+from .form import CustomerForm , ShippingAddressForm
 
 # Create your views here.
 
@@ -149,7 +149,7 @@ def checkout(req):
 
 
         if req.method == 'POST':
-            form = CustomerForm(req.POST)
+            form = ShippingAddressForm(req.POST)
 
             if form.is_valid():
                 email = form.cleaned_data['email']
@@ -185,7 +185,15 @@ def checkout(req):
                 messages.success(req, 'Success: Order placed successfully..')
                 return redirect('order_success_page')      
         else:
-            form = CustomerForm()
+            customer = req.user.customer
+            form = ShippingAddressForm(
+                initial={
+                    'name' : req.user.username,
+                    'phone_no' : customer.phone_no,
+                    'city' : customer.city,
+                    'street': customer.street,
+                }
+            )
 
         context = {
             'form' : form,
