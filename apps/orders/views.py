@@ -1,10 +1,11 @@
 from django.shortcuts import render , get_object_or_404 , redirect
 from django.contrib import messages
 from django.http import HttpResponse
-from ..orders.models import Order , OrderItems
+from ..orders.models import Order , OrderItems , ShippingAddress
 from ..accounts.models import Customer
 from ..products.models import Product
 from .form import CustomerForm , ShippingAddressForm
+from django.db import transaction
 
 # Create your views here.
 
@@ -147,40 +148,41 @@ def checkout(req):
             sub_total = product.price * quantity
             grand_total += sub_total
 
-
         if req.method == 'POST':
             form = ShippingAddressForm(req.POST)
 
             if form.is_valid():
-                email = form.cleaned_data['email']
-                customer, created = Customer.objects.get_or_create(
-                    email = email,
-                    defaults={
-                        'name' : form.cleaned_data['name'],
-                        'email' : form.cleaned_data['email'],
-                        'phoneNo' : form.cleaned_data['phoneNo'],
-                        'city' : form.cleaned_data['city'],
-                        'street' : form.cleaned_data['street'],
-                    }
-                )
-                order = Order.objects.create(
-                    customer = customer,
-                    total_price = grand_total
-                )
-
-                for product in products:
-                    cart_product_id = str(product.id)
-                    quantity = cart[cart_product_id]
-
-                    OrderItems.objects.create(
-                        order = order,
-                        product = product,
-                        quantity = quantity,
-                        price = product.price,
+                customer = req.user.customer
+                with transaction.atomic():                
+                    order = Order.objects.create(
+                        customer = customer,
+                        total_price = grand_total
                     )
+                    ShippingAddress.objects.create(
+                        order=order,
+                        name=form.cleaned_data['name'],
+                        phone_no=form.cleaned_data['phone_no'],
+                        city=form.cleaned_data['city'],
+                        street=form.cleaned_data['street']
+                    )
+                    for product in products:                   
+                        quantity = cart[str(product.id)]
+                        if product.stock < quantity:
+                            messages.error(
+                                req,
+                                f'{product.name} does not have enough stock.'
+                            )
+                            return redirect('cart')
+                        OrderItems.objects.create(
+                            order = order,
+                            product = product,
+                            quantity = quantity,
+                            price = product.price,
+                        )
 
-                    product.stock -= quantity
-                    product.save()
+                        product.stock -= quantity
+                        product.save()
+
                 req.session['cart'] = {}
                 messages.success(req, 'Success: Order placed successfully..')
                 return redirect('order_success_page')      
