@@ -5,9 +5,13 @@ from django import forms
 
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)
+    phone_no = forms.CharField(required=True , max_length=15)
+    city = forms.CharField(required=True ,max_length=50)
+    street = forms.CharField(required=True ,max_length=150)
+
     class Meta:
         model = User
-        fields = ['username', 'email','password1','password2']
+        fields = ['username', 'email', 'phone_no' , 'city' , 'street' ,'password1','password2']
 
     def clean_email(self):
         email = self.cleaned_data['email']

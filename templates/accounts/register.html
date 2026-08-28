@@ -18,6 +18,9 @@
                 {% csrf_token %}
                 {{ form.username.label_tag }} {{ form.username }} {{ form.username.errors }}
                 {{ form.email.label_tag }} {{ form.email }} {{ form.email.errors }}
+                {{form.phone_no.label_tag}} {{form.phone_no}} {{form.phone_no.errors}}
+                {{form.city.label_tag}} {{form.city}} {{form.city.errors}}
+                {{form.street.label_tag}} {{form.street}} {{form.street.errors}}
                 {{ form.password1.label_tag }} {{ form.password1 }} {{ form.password1.errors }}
                 {{ form.password2.label_tag }} {{ form.password2 }} {{ form.password2.errors }}
                 <button type="submit">Register</button>

@@ -10,13 +10,15 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def register(req):
-
     if req.method == 'POST':
         form = RegistrationForm(req.POST)
         if form.is_valid():
             user = form.save()
             Customer.objects.create(
-                user=user
+                user=user,
+                phone_no = form.cleaned_data['phone_no'],
+                city = form.cleaned_data['city'],
+                street = form.cleaned_data['street'],
             )
 
             messages.success(req, 'User register successfully..')

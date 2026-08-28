@@ -1,5 +1,6 @@
 
-from ..accounts.models import Customer
+from ..accounts.models import Customer 
+from .models import ShippingAddress
 from django import forms
 
 
@@ -18,4 +19,11 @@ class CustomerForm(forms.ModelForm):
             )
         return email
 
+
+class ShippingAddressForm(forms.ModelForm):
+    class Meta:
+        model = ShippingAddress
+        fields = [
+            'name', 'phone_no' , 'city' , 'street',
+        ]
     

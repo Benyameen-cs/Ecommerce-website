@@ -31,4 +31,18 @@ class OrderItems(models.Model):
         return f"{self.product.name} -- Order #{self.id}"
 
 
+class ShippingAddress(models.Model):
+    order = models.OneToOneField(
+        Order,
+        on_delete=models.CASCADE,
+        related_name= 'shipping_address'
+    )
+
+    name = models.CharField(max_length=100)
+    phone_no = models.CharField(max_length=15)
+    city = models.CharField(max_length=50)
+    street = models.CharField(max_length=150)
+
+    def __str__(self):
+        return f"shipping address of order {self.order.id}"
     
