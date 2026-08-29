@@ -70,8 +70,8 @@ def change_password(req):
 
 @login_required
 def profile(req):
-
-    orders = req.user.customer.orders.all()
+    customer = req.user.customer
+    orders = customer.orders.all().order_by('-created_at')
     context = {
         'user' : req.user,
         'orders': orders ,
