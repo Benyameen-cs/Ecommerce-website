@@ -17,6 +17,39 @@ def orders_details(req , id):
     }
     return render(req , 'orders/order_detail.html' , context)
 
+def cancel_order(req , id):
+    order = get_object_or_404(
+        Order,
+        id=id,
+        customer = req.user.customer
+    )
+    if req.method != 'POST':
+        return redirect('order_detail' , id=order.id)
+
+    if order.status not in [
+        order.StatusChoices.Pending,order.StatusChoices.Processing
+    ]:
+        messages.error(
+            req,
+            'The order can no longer be cancelled..'
+        )
+        return redirect('order_detail' ,id=order.id)
+    
+    with transaction.atomic():
+        for item in order.items.all():
+            product = item.product
+            product.stock += item.quantity
+            product.save()
+
+        order.status = order.StatusChoices.Cancelled
+        order.save()
+    messages.success(
+        req,
+        'your order has been cancelled..'
+    )
+
+    return redirect('order_detail' , id=order.id)
+
 
 def add_to_cart(req , product_id):
     product = get_object_or_404(Product , id=product_id)
@@ -29,6 +62,7 @@ def add_to_cart(req , product_id):
     req.session['cart'] = cart
     messages.success(req , 'Success : product added successfuly..')
     return redirect('product_list')
+
 
 def remove_cart_item(req , product_id):
     cart_product_id = str(product_id)

@@ -40,6 +40,12 @@
                         {% endfor %}
                     </ul>
                 </div>
+                {% if order.status == 'Pending' or order.status == 'Processing' %}
+                    <form method="post" action="{% url 'cancel_order' order.id %}">
+                        {% csrf_token %}
+                        <button class='cancel-order-btn' type="submit">Cancel Order</button>
+                    </form>
+                {% endif %}
             </div>
         </div>
     </main>
