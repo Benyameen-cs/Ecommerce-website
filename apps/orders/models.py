@@ -21,6 +21,21 @@ class Order(models.Model):
     total_price = models.DecimalField(max_digits=10 ,decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    ALLOWED_TRANSITIONS = {
+        StatusChoices.Pending : [ StatusChoices.Processing , StatusChoices.Cancelled],
+        StatusChoices.Processing : [StatusChoices.Shipped , StatusChoices.Cancelled],
+        StatusChoices.Shipped : [StatusChoices.Deliverd],
+        StatusChoices.Deliverd : [],
+        StatusChoices.Cancelled : [],
+    }
+
+    def can_transitions_to(self , new_status):
+        allowed_status = self.ALLOWED_TRANSITIONS.get(
+            self.status,
+            [],
+        )
+        return new_status in allowed_status
+
 
 class OrderItems(models.Model):
     order = models.ForeignKey(Order , on_delete=models.CASCADE , related_name='items')
