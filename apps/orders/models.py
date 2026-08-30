@@ -7,6 +7,7 @@ class Order(models.Model):
 
     class StatusChoices(models.TextChoices):
         Pending = 'Pending' ,'Pending'
+        Processing = 'Processing', 'Processing' 
         Deliverd ='Deliverd','Deliverd'
         Shipped = 'Shipped','Shipped'
         Cancelled = 'Cancelled','Cancelled'
