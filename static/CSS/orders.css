@@ -9,7 +9,7 @@
 
  /* Orders styles */
 
- .orders-main{
+ .order-main{
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -17,7 +17,7 @@
     justify-content: center;
  }
 
- .orders-container{
+ .order-container{
     width: 80%;
     background-color: #f9f9f9;
     padding: 5% 5%;
@@ -29,16 +29,40 @@
 }
 
 
-.orders-container h1{
+.order-container h1{
     text-align: center;
     margin-bottom: 10px;
     text-transform: capitalize;
 }
-.orders-list{
-    list-style-type: none;
+
+.order-details{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
 }
-.order-item{
-    padding: 5px;
+.order-details .order-information, .shipping-information{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.order-details .order-items{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+}
+
+.order-details .order-items .order-item{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    padding: 20px;
     border-bottom: 1px solid #ccc;
 }
 

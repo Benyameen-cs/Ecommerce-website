@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}
+    <title>Order History</title>
+{% endblock %}
+{% block link %}
+    <link rel="stylesheet" href="{% static 'CSS/orders.css' %}">
+{% endblock %}
+
+
+{% block content %}
+    <main class="order-main">
+        <div class="order-container">
+            <h1>Order Details</h1>
+            <div class="order-details">
+                <h2>Order Information:</h2>
+                <div class="order-information">
+                    <p><strong>Order ID:</strong> {{ order.id }}</p>
+                    <p><strong>Date:</strong> {{ order.created_at }}</p>
+                    <p><strong>Total:</strong> Rs. {{ order.total_price }}</p>
+                    <p><strong>Status:</strong> {{ order.status }}</p>
+                </div>
+                <h2>Shipping Information:</h2>
+                <div class="shipping-information"> 
+                    <p><strong>Recipient:</strong> {{ order.shipping_address.name }}</p>
+                    <p><strong>Phone:</strong> {{ order.shipping_address.phone_no }}</p>
+                    <p><strong>City:</strong> {{ order.shipping_address.city }}</p>
+                    <p><strong>Street:</strong> {{ order.shipping_address.street }}</p>
+                </div>
+                <h2>Items:</h2>
+                <div class="order_items">  
+                    <ul class="order-items">
+                        {% for item in order.items.all %}
+                            <li class="order-item">
+                                <p><strong>Product:</strong> {{ item.product.name }}</p>
+                                <p><strong>Quantity:</strong> {{ item.quantity }}</p>
+                                <p><strong>Price:</strong> Rs. {{ item.price }}</p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

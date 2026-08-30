@@ -1,51 +1,21 @@
 from django.shortcuts import render , get_object_or_404 , redirect
 from django.contrib import messages
-from django.http import HttpResponse
 from ..orders.models import Order , OrderItems , ShippingAddress
 from ..accounts.models import Customer
 from ..products.models import Product
 from .form import CustomerForm , ShippingAddressForm
 from django.db import transaction
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
-
-def orders(req):
+@login_required
+def orders_details(req , id):
+    orders_details = req.user.customer.orders.get(id=id)
     context = {
-        'orders':[
-            {
-                'OrderId':11,
-                'Date' : '12/2/2022',
-                'Total': 6000,
-                'Status':'100%',
-            },
-            {
-                'OrderId':11,
-                'Date' : '12/2/2022',
-                'Total': 6000,
-                'Status':'100%',
-            },
-            {
-                'OrderId':11,
-                'Date' : '12/2/2022',
-                'Total': 6000,
-                'Status':'100%',
-            },
-            {
-                'OrderId':11,
-                'Date' : '12/2/2022',
-                'Total': 6000,
-                'Status':'100%',
-            },
-            {
-                'OrderId':11,
-                'Date' : '12/2/2022',
-                'Total': 6000,
-                'Status':'100%',
-            },
-        ]
+        'order': orders_details,
     }
-    return render(req , 'orders/orders.html' , context)
+    return render(req , 'orders/order_detail.html' , context)
 
 
 def add_to_cart(req , product_id):
