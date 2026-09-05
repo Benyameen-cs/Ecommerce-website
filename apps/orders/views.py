@@ -17,6 +17,7 @@ def orders_details(req , id):
     }
     return render(req , 'orders/order_detail.html' , context)
 
+@login_required
 def cancel_order(req , id):
     order = get_object_or_404(
         Order,
@@ -34,19 +35,17 @@ def cancel_order(req , id):
             'The order can no longer be cancelled..'
         )
         return redirect('order_detail' ,id=order.id)
-    
-    with transaction.atomic():
-        for item in order.items.all():
-            product = item.product
-            product.stock += item.quantity
-            product.save()
-
-        order.status = order.StatusChoices.Cancelled
-        order.save()
-    messages.success(
-        req,
-        'your order has been cancelled..'
-    )
+    try:
+        order.cancel()    
+        messages.success(
+            req,
+            'your order has been cancelled..'
+        )
+    except ValueError as error:
+        messages.error(
+            req,
+            str(error)
+        )
 
     return redirect('order_detail' , id=order.id)
 

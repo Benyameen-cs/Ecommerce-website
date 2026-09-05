@@ -1,4 +1,4 @@
-from django.db import models
+from django.db import models , transaction 
 from ..accounts.models import Customer
 from ..products.models import Product
 # Create your models here.
@@ -35,6 +35,27 @@ class Order(models.Model):
             [],
         )
         return new_status in allowed_status
+
+
+    @transaction.atomic
+    def cancel(self):
+        print("CURRENT STATUS:", self.status)
+        print("CANCELLED STATUS:", self.StatusChoices.Cancelled)
+        print(
+        "CAN CANCEL:",
+        self.can_transitions_to(self.StatusChoices.Cancelled)
+    )
+        if not self.can_transitions_to(self.StatusChoices.Cancelled):
+            raise ValueError(
+                'This order cannot be cancelled...'
+            )
+        for item in self.items.select_related('product'):
+            product = item.product
+            product.stock += item.quantity
+            product.save()
+
+        self.status = self.StatusChoices.Cancelled
+        self.save()
 
 
 class OrderItems(models.Model):

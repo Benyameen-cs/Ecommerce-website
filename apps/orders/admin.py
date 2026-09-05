@@ -62,3 +62,15 @@ class OrderAdmin(admin.ModelAdmin):
     )
     ordering = ('-created_at',)
     inlines = [OrderItemsInline , ShippingAddressInline]
+
+    def save_model(self, request, obj, form, change):
+
+        if change:
+            old_order = Order.objects.get(pk=obj.pk)
+            if (old_order.status != Order.StatusChoices.Cancelled
+                and obj.status == Order.StatusChoices.Cancelled
+            ):
+                obj.status = old_order.status
+                obj.cancel()
+                return
+        super().save_model(request, obj, form, change)
