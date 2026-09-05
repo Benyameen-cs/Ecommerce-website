@@ -239,6 +239,15 @@ span{
     text-decoration:line-through;
 }
 
+.product-stock{
+    font-size: 18px;
+    font-weight: 500;
+    color:  black;
+    border: 1px dashed black;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
 .product-add-to-cart-button{  
     height: 55px;
     width: 100%;
