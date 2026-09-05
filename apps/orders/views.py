@@ -99,9 +99,9 @@ def increase_cart_item(req , product_id):
     cart_product_id = str(product_id)
     quantity = cart[cart_product_id]
 
-    if quantity == product.stock:
+    if quantity >= product.stock:
         req.session['cart'] = cart
-        messages.warning(req , 'Warning : product stock is empty..')
+        messages.warning(req , 'Warning : you have reached the available stock..')
         return redirect('cart')
     else:
         cart[cart_product_id] += 1
@@ -143,20 +143,29 @@ def checkout(req):
         return redirect('cart')
     else:
         cart_ids = cart.keys()
-        products = Product.objects.filter(id__in = cart_ids)
-        grand_total = 0
-        for product in products:
-            cart_product_id = str(product.id)
-            quantity = cart[cart_product_id]
-            sub_total = product.price * quantity
-            grand_total += sub_total
-
+        
         if req.method == 'POST':
             form = ShippingAddressForm(req.POST)
 
             if form.is_valid():
                 customer = req.user.customer
-                with transaction.atomic():                
+                with transaction.atomic():  
+                    products = Product.objects.select_for_update().filter(id__in = cart_ids)
+
+                    for product in products:                   
+                        quantity = cart[str(product.id)]
+                        if product.stock < quantity:
+                            messages.error(
+                            req,
+                            f'{product.name} does not have enough stock.'
+                            )
+                            return redirect('cart')
+
+                    grand_total = 0
+                    for product in products:      
+                        quantity = cart[str(product.id)]
+                        grand_total += product.price * quantity  
+
                     order = Order.objects.create(
                         customer = customer,
                         total_price = grand_total
@@ -170,12 +179,6 @@ def checkout(req):
                     )
                     for product in products:                   
                         quantity = cart[str(product.id)]
-                        if product.stock < quantity:
-                            messages.error(
-                                req,
-                                f'{product.name} does not have enough stock.'
-                            )
-                            return redirect('cart')
                         OrderItems.objects.create(
                             order = order,
                             product = product,
@@ -200,6 +203,13 @@ def checkout(req):
                 }
             )
 
+
+        products = Product.objects.filter(id__in=cart_ids)
+        grand_total = 0
+        for product in products:
+            quantity = cart[str(product.id)]
+            grand_total += product.price * quantity
+            
         context = {
             'form' : form,
             'total_amounts' : grand_total
