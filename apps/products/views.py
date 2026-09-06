@@ -1,14 +1,18 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-
+from django.core.paginator import Paginator
 from .models import Product , Category
 # Create your views here.
 
 
 def product_list(req):
     products = Product.objects.all()
+    paginator = Paginator(products, 12)
+    page_number = req.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     context  = {
-        "products" : products
+        "products" : page_obj
     }
     return render(req , 'products/product_list.html' , context)
 
@@ -37,9 +41,12 @@ def categories(req ):
 def category_detail(req , slug):
     category = Category.objects.get(slug=slug)
     products = Product.objects.filter(category=category)
+    paginator = Paginator(products , 9)
+    page_number = req.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     context = {
         'category' : category,
-        'products' : products
+        'products' : page_obj
     }
     return render(req , 'products/category_details.html' , context)
 

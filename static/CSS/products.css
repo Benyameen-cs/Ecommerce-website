@@ -146,6 +146,18 @@
     color: white;
 }
 
+/*  pagination style */
+
+.pagination{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 0;
+    gap: 20px;
+}
+
+
+
 /*  Product detail Css start from here  */
 
 
