@@ -19,22 +19,32 @@
                 <p>Explore curated collections and discover your next favorite find with exclusive seasonal picks.</p>
             </div>
         </div>
+        <div class="search-container">
+            <form action="{% url 'product_list' %}" method="get" class="search-form">
+                <input type="text" class="searchInput" id="searchInput" placeholder="Search products..." name="search">
+                <button type="submit" class="searchButton">Search</button>
+            </form>
+        </div>
         <div class="products-list-items">
-            {% for product in products  %}
-                <div class="item">
-                    <div class="item-image">
-                        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            {% if products %}
+                {% for product in products  %}
+                    <div class="item">
+                        <div class="item-image">
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                        </div>
+                        <h3 class="item-category">{{ product.category }}</h3>
+                        <h3 class="item-name">{{ product.name }}</h3>
+                        <div class="prices">
+                            <p class="item-price">Rs {{ product.price }}</p>
+                        </div>
+                        <div class="item-btns">
+                            <a href="{{ product.id }}" class="view-btn"> View </a>
+                        </div>
                     </div>
-                    <h3 class="item-category">{{ product.category }}</h3>
-                    <h3 class="item-name">{{ product.name }}</h3>
-                    <div class="prices">
-                        <p class="item-price">Rs {{ product.price }}</p>
-                    </div>
-                    <div class="item-btns">
-                        <a href="{{ product.id }}" class="view-btn"> View </a>
-                    </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            {% else %}
+                <p>No products found.</p>
+            {% endif %}
         </div>
         <div class="pagination">
             {% if products.has_previous %}

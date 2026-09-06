@@ -1,18 +1,26 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.paginator import Paginator
+from django.db.models import Q
 from .models import Product , Category
 # Create your views here.
 
 
 def product_list(req):
+
+    search = req.GET.get('search')
     products = Product.objects.all()
-    paginator = Paginator(products, 12)
-    page_number = req.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+    if search:
+        page_products = products.filter(Q(name__icontains=search) | Q(description__icontains=search))
+    else:      
+        paginator = Paginator(products, 12)
+        page_number = req.GET.get('page')
+        page_products = paginator.get_page(page_number)
+
+    
 
     context  = {
-        "products" : page_obj
+        "products" : page_products
     }
     return render(req , 'products/product_list.html' , context)
 
