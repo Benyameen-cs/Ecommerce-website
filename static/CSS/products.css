@@ -57,19 +57,22 @@
 
 /*  Search Container css  */
 
-.search-container{
+.search-filter-container{
     padding: 2rem 2rem;
     display: flex;
-    justify-content: end;
+    flex-direction: column;
+    gap: 1rem;
 
 }
 
-.search-form{
+.search-filter-form{
     display: flex;
     gap: 10px;
 }
 
-.searchInput{
+.search-filter-form input[type="text"],
+.search-filter-form input[type="number"],
+.search-filter-form .category-filter{
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;

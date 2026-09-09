@@ -19,9 +19,26 @@
                 <p>Explore curated collections and discover your next favorite find with exclusive seasonal picks.</p>
             </div>
         </div>
-        <div class="search-container">
-            <form action="{% url 'product_list' %}" method="get" class="search-form">
-                <input type="text" class="searchInput" id="searchInput" placeholder="Search products..." name="search">
+        <div class="search-filter-container">
+            <h3>Search and Filter Products</h3>
+            <form action="{% url 'product_list' %}" method="get" class="search-filter-form">
+
+                <input type="text" value="{{ search_query }}" placeholder="Search products..." name="q">
+
+                <select class="category-filter" name="category">
+                    <option value="">All</option>
+                    {% for category_item in categories %}
+                        <option value="{{ category_item.name }}"
+                            {% if category == category_item %}
+                                selected
+                            {% endif %}
+                        >
+                            {{category_item.name}}
+                        </option>
+                    {% endfor %}
+                </select>
+                <input type="number" placeholder="Min price" value="{{ min_price }}" min="0" name="min_price" >
+                <input type="number"  placeholder="Max price" value="{{max_price}}" min="0" name="max_price" >
                 <button type="submit" class="searchButton">Search</button>
             </form>
         </div>
@@ -49,13 +66,13 @@
         <div class="pagination">
             {% if products.has_previous %}
                 <a href= '?page=1'>&laquo; First</a>
-                <a href="?page={{ products.previous_page_number }}">Previous</a>
+                <a href="?{{query_params}}&page={{ products.previous_page_number }}">Previous</a>
             {% endif %}
 
             <span class="current-page">Page {{ products.number }} of {{ products.paginator.num_pages }}</span>
 
             {% if products.has_next %}
-                <a href="?page={{ products.next_page_number }}">Next</a>
+                <a href="?{{ query_params }}&page={{ products.next_page_number }}">Next</a>
             {% endif %}
         </div>
     </main> 

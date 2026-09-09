@@ -3,24 +3,76 @@ from django.http import HttpResponse
 from django.core.paginator import Paginator
 from django.db.models import Q
 from .models import Product , Category
+from decimal import Decimal , InvalidOperation
+from django.contrib import messages
 # Create your views here.
 
 
 def product_list(req):
 
-    search = req.GET.get('search')
+    search_query = req.GET.get('q' , '').strip()
+    category = req.GET.get('category', '').strip()
+    min_price = req.GET.get('min_price' , '').strip()
+    max_price = req.GET.get('max_price' , '').strip()
+
     products = Product.objects.all()
-    if search:
-        page_products = products.filter(Q(name__icontains=search) | Q(description__icontains=search))
-    else:      
-        paginator = Paginator(products, 12)
-        page_number = req.GET.get('page')
-        page_products = paginator.get_page(page_number)
+    categories = Category.objects.all()
+    
+    min_price_value = None 
+    max_price_value = None 
+
+    if min_price:
+        try:
+            min_price_value = Decimal(min_price)
+            if min_price_value < 0:
+                min_price_value = None
+                messages.error(req , 'Minimum price cannot be negative')
+        except InvalidOperation:
+            messages.error(req,'Invlaid minimum price...')
+    if max_price:
+        try:
+            max_price_value = Decimal(max_price)
+            if max_price_value < 0:
+                max_price_value = None
+                messages.error(req , 'Maximum price cannot be negative..')
+        except InvalidOperation:
+            messages.error(req ,'Invalid maximum price..')
+
+    if search_query:
+        products = products.filter(Q(name__icontains=search_query) | Q(description__icontains=search_query))
+    if category:
+        products = products.filter(category__name__iexact = category )
+
+     
+    invalid_price_range = False
+
+    if min_price_value is not None and max_price_value is not None and min_price_value> max_price_value:
+            messages.error(req , 'minimum price cannot be greater than miximum..')
+            invalid_price_range =True
+    if not invalid_price_range:
+        if min_price_value is not None:
+            products = products.filter(price__gte = min_price_value)
+        if max_price_value is not None:
+            products = products.filter(price__lte = max_price_value)
+
+    query_params = req.GET.copy()
+    query_params.pop('page', None)
+
+    paginator = Paginator(products, 9)
+    page_number = req.GET.get('page')
+    page_products = paginator.get_page(page_number)
 
     
 
     context  = {
-        "products" : page_products
+        "products" : page_products,
+        'categories': categories,
+
+        'search_query' : search_query,
+        'category' : category,
+        'min_price' : min_price ,
+        'max_price' : max_price,
+        'query_params' : query_params.urlencode(),
     }
     return render(req , 'products/product_list.html' , context)
 
