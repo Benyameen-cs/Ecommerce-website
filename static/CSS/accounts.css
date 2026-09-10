@@ -15,8 +15,8 @@
 }
 
 .login-container {
-    min-width: 400px;
-    height: 24rem;
+    width: min(100%, 420px);
+    min-height: 24rem;
     background-color: #fff;
     padding: 20px;
     border-radius: 5px;
@@ -75,7 +75,7 @@
 }
 
 .registration-container {
-    min-width: 400px;
+    width: min(100%, 420px);
     min-height: 25rem;
     background-color: #fff;
     padding: 20px;
@@ -126,7 +126,7 @@
 }
 
 .change-password-container{
-    min-width: 400px;
+    width: min(100%, 420px);
     min-height: 25rem;
     background-color: #fff;
     padding: 20px;
@@ -176,8 +176,7 @@
 }
 
 .password-reset-container{
-    min-width: 400px;
-    width: 400px;
+    width: min(100%, 420px);
     min-height: 25rem;
     background-color: #fff;
     padding: 20px;
@@ -239,7 +238,7 @@
 }
 
 .profile-container {
-    min-width: 50rem;
+    width: min(100%, 820px);
     background-color: #fff;
     padding: 20px;
     border-radius: 5px;
@@ -344,6 +343,77 @@
 .order-section ul li{
     padding: 5px;
     border-bottom: 1px solid #ccc;
+}
+
+/* Responsive account and profile layouts */
+@media (max-width: 768px) {
+    .login-main,
+    .registration-main,
+    .change-password-main,
+    .password-reset-main {
+        min-height: 100vh;
+        height: auto;
+        padding: 1rem;
+    }
+
+    .login-container,
+    .registration-container,
+    .change-password-container,
+    .password-reset-container {
+        width: min(100%, 420px);
+        min-width: auto;
+        min-height: auto;
+    }
+
+    .profile-main {
+        padding: 1rem 0;
+    }
+
+    .profile-container {
+        width: min(100%, 650px);
+        min-width: auto;
+    }
+
+    .profile-data-container,
+    .order-sections {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .profile-pic,
+    .profile-info {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .profile-info {
+        height: auto;
+    }
+
+    .profile-actions {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-container,
+    .registration-container,
+    .change-password-container,
+    .password-reset-container {
+        padding: 1rem;
+        border-radius: 8px;
+    }
+
+    .profile-actions {
+        flex-direction: column;
+    }
+
+    .profile-info .logout-btn,
+    .profile-info .change-password-btn {
+        width: 100%;
+        margin-left: 0;
+    }
 }
 
 

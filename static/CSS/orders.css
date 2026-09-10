@@ -85,10 +85,12 @@
 /* Cart styles */
 
 .container{
-    width: 100%;
+    width: min(100%, 1200px);
     min-height: 100vh;
     padding: 5% 10%;
     background-color: #f5f5f5;
+    box-sizing: border-box;
+    margin: 0 auto;
 }
 
 .container-heading{
@@ -183,6 +185,7 @@
     margin-top: 30px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 15px;
     text-align: right;
 }
@@ -245,6 +248,96 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+}
+
+/* Responsive cart and order pages */
+@media (max-width: 900px) {
+    .order-container,
+    .container {
+        width: min(100%, 920px);
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .cart-items .items {
+        height: auto;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .item-image {
+        width: 90px;
+        height: 70px;
+    }
+
+    .item-name {
+        width: 180px;
+    }
+
+    .total-price-container {
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+        text-align: center;
+    }
+}
+
+@media (min-width: 600px) and (max-width: 770px) {
+    .total-price-container {
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+@media (max-width: 640px) {
+    .order-main {
+        padding: 1rem 0;
+    }
+
+    .order-container {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .order-details .order-information,
+    .shipping-information,
+    .order-details .order-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+
+    .cart-items .items {
+        display: grid;
+        grid-template-columns: 1fr;
+        align-items: center;
+        justify-items: center;
+    }
+
+    .item-name {
+        width: 100%;
+        text-align: center;
+    }
+
+    .item-quantity-increase-decrease-contaienr {
+        gap: 0.75rem;
+    }
+
+    .cart-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .cart-actions a {
+        width: 100%;
+        text-align: center;
+    }
+
+    .total-price-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
 }
 
 

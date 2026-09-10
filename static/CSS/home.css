@@ -67,4 +67,39 @@
     color: black;
 }
 
+/* Responsive home hero */
+@media (max-width: 768px) {
+    .home-hero {
+        height: 440px;
+    }
+
+    .home-img {
+        height: 440px;
+        object-fit: cover;
+    }
+
+    .home-content .hero-heading {
+        font-size: clamp(2.2rem, 9vw, 3.5rem);
+    }
+
+    .home-content .hero-para {
+        font-size: clamp(1rem, 4vw, 1.3rem);
+    }
+}
+
+@media (max-width: 480px) {
+    .home-hero {
+        height: 360px;
+    }
+
+    .home-img {
+        height: 360px;
+    }
+
+    .home-content .hero-btn {
+        width: 140px;
+        font-size: 1rem;
+    }
+}
+
 
