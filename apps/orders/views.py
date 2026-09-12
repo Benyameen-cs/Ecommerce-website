@@ -49,7 +49,7 @@ def cancel_order(req , id):
 
     return redirect('order_detail' , id=order.id)
 
-
+@login_required
 def add_to_cart(req , product_id):
     product = get_object_or_404(Product , id=product_id)
     cart_product_id = str(product_id)
@@ -135,8 +135,8 @@ def cart(req):
     return render(req , 'orders/cart.html' , context)
 
 
+@login_required
 def checkout(req):
-
     cart = req.session.get('cart' , {})
     if not cart:
         messages.error(req , 'Error : cart is empty..')

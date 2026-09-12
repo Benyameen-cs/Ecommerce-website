@@ -94,10 +94,12 @@
             <ul>
                 <li><a href="{% url 'product_list' %}" >Products</a></li>
                 <li><a href="{% url 'category' %}" >Category</a></li>
-                <li><a href="{% url 'cart' %}" >Cart</a></li>
                 <li><a href="{% url 'login' %}" >Login</a></li>
                 <li><a href="{% url 'register' %}" >Register</a></li>
-                <li><a href="{% url 'profile' %}" >Profile</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'cart' %}" >Cart</a></li>
+                    <li><a href="{% url 'profile' %}" >Profile</a></li>
+                {% endif %}
             </ul>
         </nav>
     </header>    
