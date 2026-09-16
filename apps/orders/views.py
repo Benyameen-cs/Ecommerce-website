@@ -11,7 +11,11 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def orders_details(req , id):
-    orders_details = req.user.customer.orders.get(id=id)
+    orders_details = get_object_or_404(
+        Order.objects.prefetch_related('items__product').select_related('shipping_address'),
+        id=id,
+        customer=req.user.customer
+    )
     context = {
         'order': orders_details,
     }

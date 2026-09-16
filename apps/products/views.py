@@ -15,7 +15,7 @@ def product_list(req):
     min_price = req.GET.get('min_price' , '').strip()
     max_price = req.GET.get('max_price' , '').strip()
 
-    products = Product.objects.all()
+    products = Product.objects.select_related('category').order_by('id')
     categories = Category.objects.all()
     
     min_price_value = None 
@@ -100,7 +100,7 @@ def categories(req ):
 
 def category_detail(req , slug):
     category = Category.objects.get(slug=slug)
-    products = Product.objects.filter(category=category)
+    products = Product.objects.select_related('category').filter(category=category).order_by('id')
     paginator = Paginator(products , 9)
     page_number = req.GET.get('page')
     page_obj = paginator.get_page(page_number)

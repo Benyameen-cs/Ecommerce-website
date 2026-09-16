@@ -25,17 +25,21 @@
                         </div>
                         <div class="category-items-container">
                             {% for product in category.products.all %}
-                                <div class="item">
-                                    <div class="item-image"><img src="{{ product.image.url }}" alt="{{ product.name }}"></div>
-                                    <h3 class="item-category">{{ product.category }}</h3>
-                                    <h3 class="item-name">{{ product.name }}</h3>
-                                    <div class="prices">
-                                        <p class="item-price">Rs {{ product.price }}</p>
+                                {% if product %}
+                                    <div class="item">
+                                        <div class="item-image"><img src="{{ product.image.url }}" alt="{{ product.name }}"></div>
+                                        <h3 class="item-category">{{ product.category }}</h3>
+                                        <h3 class="item-name">{{ product.name }}</h3>
+                                        <div class="prices">
+                                            <p class="item-price">Rs {{ product.price }}</p>
+                                        </div>
+                                        <div class="item-btns">
+                                            <a href="{% url 'product_detail' id=product.id %}" class="view-btn">View Details</a>
+                                        </div>
                                     </div>
-                                    <div class="item-btns">
-                                        <a href="{% url 'product_detail' id=product.id %}" class="view-btn">View Details</a>
-                                    </div>
-                                </div>
+                                {% else %}
+                                    <p>No order Founds</p>
+                                {% endif %}
                             {% endfor %}
                         </div>  
                     </div>
