@@ -5,6 +5,7 @@ from django.db.models import Q
 from .models import Product , Category
 from decimal import Decimal , InvalidOperation
 from django.contrib import messages
+from django.core.cache import cache
 # Create your views here.
 
 
@@ -15,8 +16,13 @@ def product_list(req):
     min_price = req.GET.get('min_price' , '').strip()
     max_price = req.GET.get('max_price' , '').strip()
 
-    products = Product.objects.select_related('category').order_by('id')
-    categories = Category.objects.all()
+    products = cache.get('products')
+    categories = cache.get('categories')
+    if products is None:
+        products = Product.objects.select_related('category').order_by('id')
+        categories = Category.objects.all()
+        cache.set('products' ,products , 60 * 15)
+        cache.set('categories' ,categories , 60 * 15)
     
     min_price_value = None 
     max_price_value = None 
